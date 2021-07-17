@@ -25,7 +25,10 @@ resource "digitalocean_droplet" "goapp" {
       "docker-compose up -d --build",
 
       "cd go-web-app && docker-compose up -d --build",
-      "docker-container ls"
+      "docker container ls",
+
+      "sudo ufw allow 80",
+      "curl ifconfig.me"
     ]
   }
 }
