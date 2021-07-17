@@ -1,8 +1,8 @@
 
-resource "digitalocean_droplet" "www-1" {
-  image = "docker-18-04"
-  name = "server"
-  region = "nyc2"
+resource "digitalocean_droplet" "goapp" {
+  image = "docker-20-04"
+  name = "goapp"
+  region = "ams3"
   size = "s-1vcpu-1gb"
   private_networking = true
   ssh_keys = [
@@ -18,9 +18,14 @@ resource "digitalocean_droplet" "www-1" {
   provisioner "remote-exec" {
     inline = [
       "export PATH=$PATH:/usr/bin",
-
       "sudo apt-get update",
+      "sudo apt install git",
 
+      "git clone https://github.com/advantch/go-web-app",
+      "docker-compose up -d --build",
+
+      "cd go-web-app && docker-compose up -d --build",
+      "docker-container ls"
     ]
   }
 }
